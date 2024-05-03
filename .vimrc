@@ -6,15 +6,18 @@ let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 
 call plug#begin('~/.vim/plugged')
     Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-    Plug 'davidhalter/jedi-vim'
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
     Plug 'preservim/nerdcommenter'
     Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'https://github.com/machakann/vim-highlightedyank'
     Plug 'adrienverge/vim-python-logging'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'neovim/nvim-lspconfig'
 call plug#end()
-
 
 colorscheme gruvbox
 
@@ -96,3 +99,4 @@ let g:clipboard = {
           \   'cache_enabled': 0,
           \ }
 
+lua require('init')
