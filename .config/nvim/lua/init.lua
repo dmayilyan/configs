@@ -1,9 +1,12 @@
+local lsp = require('lsp-zero')
+lsp.preset("recommended")
+
 require("mason").setup()
 require("mason-lspconfig").setup{
     ensure_installed = {"lua_ls", "ruff", "ruff_lsp", "pylsp", "markdown_oxide"}
 }
 require("lspconfig").ruff.setup{}
-require("lspconfig").ruff_lsp.setup{}
+require("lspconfig").intelephense.setup({})
 
 local on_attach = function(_, _)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {})
@@ -19,3 +22,11 @@ end
 require("lspconfig").lua_ls.setup{
     on_attach = on_attach
 }
+require("lspconfig").pylsp.setup{
+    on_attach = on_attach
+}
+
+local cmp = require('cmp')
+local cmp_mappings = lsp.defaults.cmp_mappings({
+  ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
+})
