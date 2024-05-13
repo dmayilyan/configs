@@ -28,5 +28,6 @@ require("lspconfig").pylsp.setup{
 
 local cmp = require('cmp')
 local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-Space>'] = cmp.mapping.complete(),
 })
