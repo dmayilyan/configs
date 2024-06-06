@@ -77,6 +77,10 @@ let g:jedi#use_tabs_not_buffers = 1
 " map \[[ to run the code
 nnoremap <silent> <leader>[[ :%w ! python3<CR>
 
+" map F1 to Escape
+map <F1> <Esc>
+imap <F1> <Esc>
+
 " autocomplete chars
 inoremap ( ()<left>
 inoremap { {}<left>
