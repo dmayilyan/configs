@@ -43,6 +43,10 @@ let NERDTreeIgnore=['\.pyc$', '\~$', 'node_modules', '__pycache__']
 
 " Undotree toggle
 nnoremap <F5> :UndotreeToggle<CR>
+" undotree config
+let g:undotree_WindowLayout = 2
+let g:undotree_DiffpanelHeight = 15
+let g:undotree_SetFocusWhenToggle = 1
 
 " Run Git
 nnoremap <F10> :Git<CR>
