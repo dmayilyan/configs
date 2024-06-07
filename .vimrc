@@ -9,6 +9,7 @@ let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 " endif
 
 call plug#begin('~/.vim/plugged')
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
     Plug 'morhetz/gruvbox'
     Plug 'airblade/vim-gitgutter'
@@ -17,15 +18,21 @@ call plug#begin('~/.vim/plugged')
     Plug 'https://github.com/machakann/vim-highlightedyank'
     Plug 'adrienverge/vim-python-logging'
     Plug 'VonHeikemen/lsp-zero.nvim'
+    " Autocompletion
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-nvim-lsp'
+
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
+    Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
-    Plug 'neovim/nvim-lspconfig'
+    Plug 'tpope/vim-fugitive'
+    Plug 'mbbill/undotree'
+    " Snippets
+    Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
 colorscheme gruvbox
@@ -34,17 +41,38 @@ colorscheme gruvbox
 map <F12> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$', 'node_modules', '__pycache__']
 
+" Undotree toggle
+nnoremap <F5> :UndotreeToggle<CR>
+
+" Run Git
+nnoremap <F10> :Git<CR>
+
+"Set up persistent undo
+if has("persistent_undo")
+   let target_path = expand('/tmp')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
 
 set number
 set relativenumber
 set cursorline
 set cc=80,120
 set mouse=
-set hlsearch
-set scrolloff=3
+set nohlsearch
+set incsearch
+set scrolloff=5
 set foldmethod=indent
 set nofoldenable
 set nocompatible
+set updatetime=50
 
 " sudo write this
 cmap W! silent w !sudo tee % >/dev/null
@@ -77,7 +105,7 @@ let g:jedi#use_tabs_not_buffers = 1
 " map \[[ to run the code
 nnoremap <silent> <leader>[[ :%w ! python3<CR>
 
-" map F1 to Escape
+"Map F1 to Escape
 map <F1> <Esc>
 imap <F1> <Esc>
 
@@ -116,16 +144,16 @@ let g:indent_blankline_show_first_indent_level = v:false
 
 set clipboard+=unnamedplus
 let g:clipboard = {
-          \   'name': 'win32yank-wsl',
-          \   'copy': {
-          \      '+': 'win32yank.exe -i --crlf',
-          \      '*': 'win32yank.exe -i --crlf',
-          \    },
-          \   'paste': {
-          \      '+': 'win32yank.exe -o --lf',
-          \      '*': 'win32yank.exe -o --lf',
-          \   },
-          \   'cache_enabled': 0,
-          \ }
+                \   'name': 'WslClipboard',
+                \   'copy': {
+                \      '+': 'clip.exe',
+                \      '*': 'clip.exe',
+                \    },
+                \   'paste': {
+                \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \   },
+                \   'cache_enabled': 0,
+                \ }
 
 lua require('init')
