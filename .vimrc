@@ -40,6 +40,7 @@ colorscheme gruvbox
 " Nerdtree configuration
 map <F12> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\~$', 'node_modules', '__pycache__']
+let g:NERDTreeWinPos = "right"
 
 " Undotree toggle
 nnoremap <F5> :UndotreeToggle<CR>
