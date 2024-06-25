@@ -71,7 +71,7 @@ set relativenumber
 set cursorline
 set cc=80,120
 set mouse=
-set nohlsearch
+set hlsearch
 set incsearch
 set scrolloff=5
 set foldmethod=indent
