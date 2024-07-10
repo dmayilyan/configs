@@ -31,6 +31,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'tpope/vim-fugitive'
     Plug 'mbbill/undotree'
+    Plug 'luochen1990/rainbow'
     " Snippets
     Plug 'rafamadriz/friendly-snippets'
 call plug#end()
@@ -146,6 +147,23 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 let g:indent_blankline_show_first_indent_level = v:false
+
+" Rainbow parenthesis
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+\   'separately': {
+\       '*': 0,
+\       'python': {
+\           'guifgs': ['seagreen3', 'darkorchid3', 'royalblue3', 'darkorange3',],
+\           'ctermfgs': ['lightyellow', 'lightcyan', 'lightmagenta', 'lightblue'],
+\       },
+\       'json': {
+\           'guifgs': ['seagreen3', 'darkorchid3', 'royalblue3', 'darkorange3',],
+\           'ctermfgs': ['lightyellow', 'lightcyan', 'lightmagenta', 'lightblue'],
+\           'operators': '_,'
+\       }
+\   }
+\}
 
 set clipboard+=unnamedplus
 let g:clipboard = {
